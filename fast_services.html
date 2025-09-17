@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الخدمات الفورية</title>
+  <style>
+    body { font-family:'Cairo',sans-serif; direction:rtl; margin:0; background:#f7f7f7; }
+    header { background:#e74c3c; color:white; text-align:center; padding:20px; }
+    nav { background:#34495e; display:flex; justify-content:center; }
+    nav a { color:white; text-decoration:none; padding:14px 20px; }
+    nav a:hover { background:#e74c3c; }
+    .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:30px; }
+    .card { background:#fff; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); overflow:hidden; transition:0.3s; }
+    .card:hover { transform:translateY(-5px); }
+    .card img { width:100%; height:180px; object-fit:cover; }
+    .card-content { padding:15px; text-align:center; }
+    .card-content h3 { margin:10px 0; color:#333; }
+    .card-content p { color:#666; font-size:14px; }
+    .card-content button { margin-top:10px; background:#e74c3c; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer; font-size:15px; }
+    .card-content button:hover { background:#c0392b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>الخدمات الفورية</h1>
+    <p>خدمة عاجلة للسباكة والكهرباء على مدار الساعة</p>
+  </header>
+
+  <nav>
+    <a href="index.html">الواجهة</a>
+    <a href="marble.html">الرخام</a>
+    <a href="ceramic.html">السيراميك</a>
+    <a href="plumbing.html">السباكة</a>
+    <a href="electric.html">الكهرباء</a>
+    <a href="painting.html">النقاشة</a>
+    <a href="fast_services.html"> الخدمة الفورية</a>
+    <a href="order.html">طلب الخدمة</a>
+    <a href="multi_order.html">طلب اكثر من خدمة</a>
+    <a href="reviews.html">التعليقات</a>
+  </nav>
+
+  <section class="services">
+    <!-- سباكة -->
+    <div class="card">
+      <img src="images/sbaka/img5.jpeg" alt="سباكة">
+      <div class="card-content">
+        <h3>صيانة أعطال سباكة فورية</h3>
+        <p>نصل إليك فورًا لإصلاحات و الاعطال المتعلقة بالسباكة.</p>
+        <p>نصل إليك في خلال 24 ساعة.</p>
+        <button onclick="orderNow('صيانة سباكة فورية')">اطلب الآن</button>
+      </div>
+    </div>
+
+    
+
+    <!-- كهرباء -->
+    <div class="card">
+      <img src="images/kahrba/basic/img1.jpg" alt="كهرباء">
+      <div class="card-content">
+        <h3>صيانة أعطال كهرباء فورية</h3>
+        <p>إصلاح الأعطال الكهربائية الطارئة وضمان سلامتك.</p>
+        <p>نصل إليك في خلال 24 ساعة.</p>
+        <button onclick="orderNow('صيانة كهرباء فورية')">اطلب الآن</button>
+      </div>
+    </div>
+
+    
+  </section>
+
+  <script>
+    function orderNow(service) {
+      let message = `🔧 طلب خدمة فورية:%0Aالخدمة: ${service}`;
+      window.open(`https://wa.me/201024324864?text=${message}`, "_blank");
+    }
+  </script>
+</body>
+</html>

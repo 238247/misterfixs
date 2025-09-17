@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تمديدات كهرباء</title>
+  <style>
+    body { font-family:'Cairo',sans-serif; direction:rtl; margin:0; background:#f7f7f7; }
+    header { background:#1abc9c; color:white; text-align:center; padding:20px; }
+    nav { background:#34495e; display:flex; justify-content:center; flex-wrap:wrap; }
+    nav a { color:white; text-decoration:none; padding:14px 20px; transition:background 0.3s ease; }
+    nav a:hover { background:#1abc9c; }
+
+    /* 📸 معرض الصور */
+    .gallery { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); 
+      gap:20px; 
+      padding:20px; 
+    }
+    .gallery img { 
+      width:100%; 
+      height:220px; 
+      object-fit:cover; 
+      border-radius:12px; 
+      box-shadow:0 4px 10px rgba(0,0,0,0.15); 
+      transition:transform 0.4s ease, box-shadow 0.4s ease; 
+    }
+    .gallery img:hover { 
+      transform:scale(1.05); 
+      box-shadow:0 8px 20px rgba(0,0,0,0.25); 
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+      margin-top: 40px;
+      position: relative;
+    }
+    footer p { margin: 5px 0 15px; }
+
+    .social a { margin: 0 12px; display: inline-block; transition: transform 0.3s ease; }
+    .social a:hover { transform: scale(1.2); }
+
+    .social img {
+      width: 36px;
+      height: 36px;
+      vertical-align: middle;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header><h1>تمديدات كهرباء</h1></header>
+  <nav>
+    <a href="index.html">الواجهة</a>
+    <a href="marble.html">الرخام</a>
+    <a href="ceramic.html">السيراميك</a>
+    <a href="plumbing.html">السباكة</a>
+    <a href="electric.html">الكهرباء</a>
+    <a href="painting.html">النقاشة</a>
+    <a href="fast_services.html"> الخدمة الفورية</a>
+    <a href="order.html">طلب الخدمة</a>
+    <a href="multi_order.html">طلب اكثر من خدمة</a>
+    <a href="reviews.html">التعليقات</a>
+  </nav>
+
+  <div class="gallery">
+    <img src="images/kahrba/basic/img2.jpg" alt="تمديد 1">
+    <img src="images/kahrba/basic/img3.jpg" alt="تمديد 2">
+    <img src="images/kahrba/basic/img4.jpeg" alt="تمديد 3">
+  </div>
+
+  <div class="gallery">
+    <img src="images/kahrba/basic/img5.webp" alt="تمديد 4">
+    <img src="images/kahrba/basic/img6.jpg" alt="تمديد 5">
+    <img src="images/kahrba/basic/img7.webp" alt="تمديد 6">
+  </div>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © 2025 مكتب الخدمات</p>
+    <div class="social">
+      <a href="https://wa.me/201024324864" target="_blank">
+        <img src="images/whatsapp.jpeg" alt="واتساب بزنس">
+      </a>
+      <a href="https://www.facebook.com/share/1BKegcm4Ea/" target="_blank">
+        <img src="images/facebook.jpeg" alt="فيسبوك">
+      </a>
+      <a href="https://www.instagram.com/mis_terfix" target="_blank">
+        <img src="images/insta.jpeg" alt="انستجرام">
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

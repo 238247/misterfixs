@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>التعليقات والتقييمات</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+      background: #f7f7f7;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2c3e50, #1abc9c);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    nav {
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      display: block;
+    }
+
+    nav a:hover {
+      background: #1abc9c;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .review-form {
+      margin-bottom: 30px;
+    }
+
+    .review-form input, 
+    .review-form textarea, 
+    .review-form select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .review-form button {
+      background: #1abc9c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .review-form button:hover {
+      background: #16a085;
+    }
+
+    .reviews-list {
+      margin-top: 20px;
+    }
+
+    .review {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .review h3 {
+      margin: 0;
+      color: #1abc9c;
+    }
+
+    .review .stars {
+      color: #f39c12;
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .review p {
+      margin: 5px 0 0;
+      color: #555;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+      margin-top: 40px;
+      position: relative;
+    }
+
+    footer p {
+      margin: 5px 0 15px;
+    }
+
+    .social a {
+      margin: 0 12px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .social a:hover {
+      transform: scale(1.2);
+    }
+
+    .social img {
+      width: 36px;
+      height: 36px;
+      vertical-align: middle;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>التعليقات والتقييمات</h1>
+    <img src="images/logo.png" alt="شعار مسترفكس" style="margin-top: 7px; width: 100px; height:auto;">
+  </header>
+
+  <nav>
+    <a href="index.html">الواجهة</a>
+    <a href="marble.html">الرخام</a>
+    <a href="ceramic.html">السيراميك</a>
+    <a href="plumbing.html">السباكة</a>
+    <a href="electric.html">الكهرباء</a>
+    <a href="painting.html">النقاشة</a>
+    <a href="fast_services.html"> الخدمة الفورية</a>
+    <a href="order.html">طلب الخدمة</a>
+    <a href="multi_order.html">طلب اكثر من خدمة</a>
+    <a href="reviews.html">التعليقات</a>
+  </nav>
+
+  <div class="container">
+    <h2>اكتب رأيك</h2>
+    <form class="review-form" id="reviewForm">
+      <input type="text" id="name" placeholder="اسمك" required>
+      <select id="rating" required>
+        <option value="">اختر التقييم ⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐ ممتاز</option>
+        <option value="4">⭐⭐⭐⭐ جيد جدا</option>
+        <option value="3">⭐⭐⭐ جيد</option>
+        <option value="2">⭐⭐ ضعيف</option>
+        <option value="1">⭐ سيئ</option>
+      </select>
+      <textarea id="comment" rows="4" placeholder="اكتب تعليقك..." ></textarea>
+      <button type="submit">إرسال التقييم</button>
+    </form>
+
+    <div class="reviews-list" id="reviewsList">
+      <h2>آراء العملاء</h2>
+      <!-- التعليقات هتظهر هنا -->
+    </div>
+  </div>
+
+  <script>
+     const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get('name');
+
+  if(userName){
+    const nameInput = document.getElementById("name");
+    nameInput.value = decodeURIComponent(userName);
+    nameInput.focus(); // يوضع المؤشر في خانة التعليق مباشرة
+  }
+    const form = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const rating = document.getElementById("rating").value;
+      const comment = document.getElementById("comment").value;
+
+      const stars = "⭐".repeat(rating);
+
+      const review = document.createElement("div");
+      review.classList.add("review");
+      review.innerHTML = `
+        <h3>${name}</h3>
+        <div class="stars">${stars}</div>
+        <p>${comment}</p>
+      `;
+
+      reviewsList.appendChild(review);
+
+      form.reset();
+    });
+  </script>
+  
+  <footer>
+    <p>جميع الحقوق محفوظة © 2025 مكتب الخدمات</p>
+    <div class="social">
+      <a href="https://wa.me/201024324864" target="_blank">
+        <img src="images/whatsapp.jpeg" alt="واتساب بزنس">
+      </a>
+      <a href="https://www.facebook.com/share/1BKegcm4Ea/" target="_blank">
+        <img src="images/facebook.jpeg" alt="فيسبوك">
+      </a>
+      <a href="https://www.instagram.com/mis_terfix" target="_blank">
+        <img src="images/insta.jpeg" alt="انستجرام">
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

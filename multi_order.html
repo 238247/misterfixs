@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>طلب خدمات متعددة</title>
+  <style>
+    body { font-family:'Cairo',sans-serif; direction:rtl; margin:0; background:#f7f7f7; }
+    header { background:#27ae60; color:white; text-align:center; padding:20px; }
+    .form-container { max-width:800px; margin:30px auto; background:#fff; padding:25px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    h2 { text-align:center; margin-bottom:20px; }
+    label { display:block; margin:10px 0 5px; font-weight:bold; }
+    input, select, textarea { width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px; }
+    .service-box { border:1px solid #ddd; padding:15px; border-radius:8px; margin:15px 0; background:#fafafa; display:none; }
+    .checkbox-label { font-weight:normal; margin:8px 0; display:block; }
+    button { background:#27ae60; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-size:16px; width:100%; }
+    button:hover { background:#219150; }
+    .negotiation-box { display:none; background:#dff0d8; color:#3c763d; padding:15px; border-radius:8px; margin-top:20px; font-weight:bold; text-align:center; }
+  </style>
+</head>
+<body>
+  <header><h1>طلب أكثر من خدمة</h1></header>
+
+  <div class="form-container">
+    <h2>اختر الخدمات المطلوبة</h2>
+
+    <!-- ✅ اختيار خدمات -->
+    <label class="checkbox-label"><input type="checkbox" name="service" value="رخام" onchange="toggleService('marbleOptions')"> رخام</label>
+    <label class="checkbox-label"><input type="checkbox" name="service" value="سيراميك" onchange="toggleService('ceramicOptions')"> سيراميك</label>
+    <label class="checkbox-label"><input type="checkbox" name="service" value="سباكة" onchange="toggleService('plumbingOptions')"> سباكة</label>
+    <label class="checkbox-label"><input type="checkbox" name="service" value="كهرباء" onchange="toggleService('electricOptions')"> كهرباء</label>
+    <label class="checkbox-label"><input type="checkbox" name="service" value="نقاشة" onchange="toggleService('paintingOptions')"> نقاشة</label>
+    <label class="checkbox-label"><input type="checkbox" name="service" value="ديكور" onchange="toggleService('decorOptions')"> ديكور</label>
+
+    <!-- ✅ خيارات لكل خدمة -->
+    <div id="marbleOptions" class="service-box">
+      <label>نوع الرخام</label>
+      <select id="marbleType">
+        <option value="رخام مطابخ">رخام مطابخ</option>
+        <option value="رخام سلالم">رخام سلالم</option>
+        <option value="ديكورات رخام">ديكورات رخام</option>
+      </select>
+      <label>عدد الأمتار</label>
+      <input type="number" id="marbleMeters" placeholder="أدخل عدد الأمتار">
+    </div>
+
+    <div id="ceramicOptions" class="service-box">
+      <label>نوع السيراميك</label>
+      <select id="ceramicMainType">
+        <option value="سيراميك أرضية">سيراميك أرضية</option>
+        <option value="سيراميك حائط">سيراميك حائط</option>
+        <option value="سيراميك ديكور">سيراميك ديكور</option>
+      </select>
+      <label>عدد الأمتار</label>
+      <input type="number" id="ceramicMeters" placeholder="أدخل عدد الأمتار">
+    </div>
+
+    <div id="plumbingOptions" class="service-box">
+      <label>الخامات من؟</label>
+      <select id="plumbingMaterial">
+        <option value="نحن نوفر الخامات">نحن نوفر الخامات</option>
+        <option value="العميل يوفر الخامات">العميل يوفر الخامات</option>
+      </select>
+    </div>
+
+    <!-- <div id="electricOptions" class="service-box">
+      <label>الخامات من؟</label>
+      <select id="electricMaterial">
+        <option value="نحن نوفر الخامات">نحن نوفر الخامات</option>
+        <option value="العميل يوفر الخامات">العميل يوفر الخامات</option>
+      </select>
+    </div>
+
+    <div id="paintingOptions" class="service-box">
+      <label>هل ستوفر الدهانات بنفسك؟</label>
+      <select id="paintingMaterial">
+        <option value="نعم">نعم</option>
+        <option value="لا">لا</option>
+      </select>
+    </div>
+
+    <div id="decorOptions" class="service-box">
+      <label>هل لديك تصميم ديكور؟</label>
+      <select id="decorChoice">
+        <option value="لا">لا</option>
+        <option value="نعم">نعم</option>
+      </select>
+    </div> -->
+
+    <!-- ✅ بيانات العميل -->
+    <h2>بياناتك</h2>
+    <label>الاسم *</label>
+    <input type="text" id="name" required placeholder="اكتب اسمك">
+    <label>رقم الهاتف *</label>
+    <input type="tel" id="phone" required placeholder="اكتب رقم هاتفك">
+    <label>العنوان *</label>
+    <textarea id="address" required placeholder="اكتب عنوانك بالتفصيل"></textarea>
+
+    <button onclick="sendOrder()">إرسال الطلب عبر واتساب</button>
+
+    <div id="negotiationBox" class="negotiation-box">
+      ✅ السعر قابل للتفاوض بعد المعاينة
+    </div>
+  </div>
+
+<script>
+function toggleService(id) {
+  let box = document.getElementById(id);
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function sendOrder() {
+  let name = document.getElementById("name").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let address = document.getElementById("address").value.trim();
+  let selectedServices = Array.from(document.querySelectorAll('input[name="service"]:checked')).map(cb => cb.value);
+
+  if (!selectedServices.length || !name || !phone || !address) {
+    alert("⚠️ من فضلك املأ جميع الحقول الإجبارية.");
+    return;
+  }
+
+  if (!/^01[0-9]{9}$/.test(phone)) {
+    alert("❌ رقم الهاتف غير صحيح. يجب أن يكون 11 رقم ويبدأ بـ 01");
+    return;
+  }
+
+  let message = `طلب خدمات متعددة:%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالعنوان: ${address}`;
+
+  selectedServices.forEach(service => {
+    message += `%0A--------------------%0Aالخدمة: ${service}`;
+    if (service === "رخام") {
+      message += `%0Aالنوع: ${document.getElementById("marbleType").value}`;
+      message += `%0Aالأمتار: ${document.getElementById("marbleMeters").value}`;
+    }
+    if (service === "سيراميك") {
+      message += `%0Aالنوع: ${document.getElementById("ceramicMainType").value}`;
+      message += `%0Aالأمتار: ${document.getElementById("ceramicMeters").value}`;
+    }
+    if (service === "سباكة") {
+      message += `%0Aالخامات: ${document.getElementById("plumbingMaterial").value}`;
+    }
+    if (service === "كهرباء") {
+      message += `%0Aالخامات: ${document.getElementById("electricMaterial").value}`;
+    }
+    if (service === "نقاشة") {
+      message += `%0Aهل سيوفر الخامات؟: ${document.getElementById("paintingMaterial").value}`;
+    }
+    if (service === "ديكور") {
+      message += `%0Aهل يوجد تصميم؟: ${document.getElementById("decorChoice").value}`;
+    }
+  });
+
+  window.open(`https://wa.me/201024324864?text=${message}`, "_blank");
+  document.getElementById("negotiationBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>

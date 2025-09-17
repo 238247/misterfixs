@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>طلب خدمة</title>
+  <style>
+    body { font-family:'Cairo',sans-serif; direction:rtl; margin:0; background:#f7f7f7; }
+    header { background:#1abc9c; color:white; text-align:center; padding:20px; }
+    nav { background:#34495e; display:flex; justify-content:center; }
+    nav a { color:white; text-decoration:none; padding:14px 20px; }
+    nav a:hover { background:#1abc9c; }
+    .form-container { max-width:700px; margin:30px auto; background:#fff; padding:25px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    label { display:block; margin:10px 0 5px; font-weight:bold; }
+    input, select, textarea { width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px; }
+    button { background:#1abc9c; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-size:16px; }
+    button:hover { background:#16a085; }
+    .price-box { background:#ecf0f1; padding:15px; border-radius:8px; margin:15px 0; font-weight:bold; text-align:center; }
+    .negotiation-box { display:none; background:#dff0d8; color:#3c763d; padding:15px; border-radius:8px; margin-top:20px; font-weight:bold; text-align:center; }
+  </style>
+</head>
+<body>
+  <header><h1>طلب خدمة</h1></header>
+  
+
+  <div class="form-container">
+    <h2>املأ البيانات لطلب الخدمة</h2>
+
+    <label>نوع الخدمة *</label>
+    <select id="service" required onchange="updateForm()">
+  <option value="">-- اختر الخدمة --</option>
+  <option value="رخام">رخام</option>
+  <option value="سيراميك">سيراميك</option>
+  <option value="سباكة">سباكة</option>
+  <option value="كهرباء">كهرباء</option>
+  <option value="نقاشة">نقاشة</option>
+  <option value="ديكور"> ديكورات اضاءة</option>
+    </select>
+<!-- ✅ النقاشة -->
+<div id="paintingOptions" style="display:none;">
+  <label>هل ستوفر الخامات (الدهانات) بنفسك؟</label>
+  <select id="paintingMaterial" onchange="togglePaintingUpload()">
+    <option value="نعم">نعم</option>
+    <option value="لا">لا</option>
+  </select>
+  <div id="paintingUpload" style="display:none;">
+    <label>ارفع صورة اللون أو الدهان المطلوب</label>
+    <input type="file" id="paintingImage" accept="image/*">
+  </div>
+</div>
+
+<!-- ✅ الديكور -->
+<div id="decorOptions" style="display:none;">
+  <label>هل لديك تصميم ديكور معين؟</label>
+  <select id="decorChoice" onchange="toggleDecorUpload()">
+    <option value="لا">لا</option>
+    <option value="نعم">نعم</option>
+  </select>
+  <div id="decorUpload" style="display:none;">
+    <label>ارفع صورة التصميم</label>
+    <input type="file" id="decorImage" accept="image/*">
+  </div>
+</div>
+    <!-- ✅ الرخام -->
+    <div id="marbleOptions" style="display:none;">
+      <label>اختر شكل الرخام</label>
+      <select id="marbleType">
+        <option value="رخام مطابخ">رخام مطابخ</option>
+        <option value="رخام سلالم">رخام سلالم</option>
+        <option value="ديكورات رخام">ديكورات رخام</option>
+      </select>
+      <label>عدد الأمتار</label>
+      <input type="number" id="marbleMeters" placeholder="أدخل عدد الأمتار">
+      <div class="price-box" id="marblePrice">التكلفة: 0 جنيه</div>
+      <label>ارفع صورة الرخام (اختياري)</label>
+      <input type="file" id="marbleImage" accept="image/*">
+      <label>أو اختر من المعروض لدينا</label>
+      <select id="marbleGallery">
+        <option value="اخري ">اخري</option>
+        <option value="رخام أبيض">رخام أبيض</option>
+        <option value="رخام أسود">رخام أسود</option>
+        <option value="رخام رمادي">رخام رمادي</option>
+      </select>
+    </div>
+
+    <!-- ✅ السيراميك -->
+    <div id="ceramicOptions" style="display:none;">
+      <label>اختر شكل السيراميك</label>
+      <select id="ceramicMainType">
+        <option value="سيراميك ديكور">سيراميك ديكور</option>
+        <option value="سيراميك حائط">سيراميك حائط</option>
+        <option value="سيراميك أرضية">سيراميك أرضية</option>
+      </select>
+      <label>عدد الأمتار</label>
+      <input type="number" id="ceramicMeters" placeholder="أدخل عدد الأمتار">
+      <div class="price-box" id="ceramicPrice">التكلفة: 0 جنيه</div>
+      <label>ارفع صورة السيراميك (اختياري)</label>
+      <input type="file" id="ceramicImage" accept="image/*">
+      <!-- <label>أو اختر من المعروض لدينا</label>
+      <select id="ceramicGallery">
+        <option value="سيراميك مودرن">سيراميك مودرن</option>
+        <option value="سيراميك كلاسيك">سيراميك كلاسيك</option>
+      </select> -->
+      <label>هل تريد شركة معينة؟</label>
+      <select id="ceramicCompany" onchange="toggleCompanyInput()">
+        <option value="لا">لا</option>
+        <option value="نعم">نعم</option>
+        <option value="اخري">اخري</option>
+      </select>
+      <div id="companyOptions" style="display:none;">
+        <label>اختر الشركة</label>
+        <select id="companyName">
+          <option value="شركة بريما ">شركة بريما</option>
+          <option value="شركة الجوهرة">شركة الجوهرة</option>
+        </select>
+      </div>
+      <div id="companyOther" style="display:none;">
+        <label>اكتب اسم الشركة</label>
+        <input type="text" id="otherCompany">
+      </div>
+    </div>
+
+    <!-- ✅ السباكة -->
+<div id="plumbingOptions" style="display:none;">
+  <label>الخامات من؟</label>
+  <select id="plumbingMaterial">
+    <option value="نحن نوفر الخامات">نحن نوفر الخامات</option>
+    <option value="العميل يوفر الخامات">العميل يوفر الخامات</option>
+  </select>
+</div>
+
+<!-- ✅ الكهرباء -->
+<div id="electricOptions" style="display:none;">
+  <label>الخامات من؟</label>
+  <select id="electricMaterial">
+    <option value="نحن نوفر الخامات">نحن نوفر الخامات</option>
+    <option value="العميل يوفر الخامات">العميل يوفر الخامات</option>
+  </select>
+</div>
+
+
+    <!-- ✅ بيانات العميل -->
+    <label>الاسم *</label>
+    <input type="text" id="name" required placeholder="اكتب اسمك">
+    <label>رقم الهاتف *</label>
+    <input type="tel" id="phone" required placeholder="اكتب رقم هاتفك">
+    <label>العنوان *</label>
+    <textarea id="address" required placeholder="اكتب عنوانك بالتفصيل"></textarea>
+
+    <button onclick="sendOrder()">إرسال الطلب عبر واتساب</button>
+
+    <div id="negotiationBox" class="negotiation-box">
+      ✅ السعر قابل للتفاوض بعد المعاينة
+    </div>
+  </div>
+
+<script>
+    const ceramicPricePerMeter = 75;
+    const marblePricePerMeter = 130;
+
+    function updateForm() {
+      
+      let service = document.getElementById("service").value;
+      document.getElementById("ceramicOptions").style.display = (service === "سيراميك") ? "block" : "none";
+      document.getElementById("marbleOptions").style.display = (service === "رخام") ? "block" : "none";
+      document.getElementById("plumbingOptions").style.display = (service === "سباكة") ? "block" : "none";
+      document.getElementById("electricOptions").style.display = (service === "كهرباء") ? "block" : "none";
+      document.getElementById("paintingOptions").style.display = (service === "نقاشة") ? "block" : "none";
+      document.getElementById("decorOptions").style.display = (service === "ديكور") ? "block" : "none";
+
+
+
+
+
+      
+    }
+
+    document.getElementById("ceramicMeters").addEventListener("input", function() {
+      let total = this.value * ceramicPricePerMeter;
+      document.getElementById("ceramicPrice").innerText = "التكلفة: " + total + " جنيه";
+    });
+
+    document.getElementById("marbleMeters").addEventListener("input", function() {
+      let total = this.value * marblePricePerMeter;
+      document.getElementById("marblePrice").innerText = "التكلفة: " + total + " جنيه";
+    });
+
+    function toggleCompanyInput() {
+      let val = document.getElementById("ceramicCompany").value;
+      document.getElementById("companyOptions").style.display = (val === "نعم") ? "block" : "none";
+      document.getElementById("companyOther").style.display = (val === "أخرى") ? "block" : "none";
+    }
+
+    // ✅ دالة لمعالجة سؤال النقاشة
+    function handlePaintAnswer(value) {
+      document.getElementById("paintExtra").style.display = (value === "لا") ? "block" : "none";
+    }
+
+    // ✅ دالة لمعالجة سؤال الديكور
+    function handleDecorAnswer(value) {
+      document.getElementById("decorUpload").style.display = (value === "نعم") ? "block" : "none";
+    }
+
+    function sendOrder() {
+      
+      let service = document.getElementById("service").value;
+      let name = document.getElementById("name").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+      let address = document.getElementById("address").value.trim();
+      const userName = encodeURIComponent(name);
+      setTimeout(() => {
+      window.location.href = `reviews.html?name=${userName}`;
+       }, 2000);
+
+      if (!service || !name || !phone || !address) {
+        alert("⚠️ من فضلك املأ جميع الحقول الإجبارية.");
+        return;
+      }
+
+      if (!/^01[0-9]{9}$/.test(phone)) {
+        alert("❌ رقم الهاتف غير صحيح. يجب أن يكون 11 رقم ويبدأ بـ 01");
+        return;
+      }
+
+      let message = `طلب خدمة:%0Aالخدمة: ${service}%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالعنوان: ${address}`;
+
+      if (service === "رخام") {
+        let marbleType = document.getElementById("marbleType").value;
+        let meters = document.getElementById("marbleMeters").value;
+        let gallery = document.getElementById("marbleGallery").value;
+        message += `%0Aالنوع: ${marbleType}%0Aالأمتار: ${meters}%0Aاختيار من المعرض: ${gallery}`;
+      }
+
+      if (service === "سيراميك") {
+        let ceramicType = document.getElementById("ceramicMainType").value;
+        let meters = document.getElementById("ceramicMeters").value;
+        let gallery = document.getElementById("ceramicGallery").value;
+        let company = document.getElementById("ceramicCompany").value;
+        message += `%0Aالنوع: ${ceramicType}%0Aالأمتار: ${meters}%0Aاختيار من المعرض: ${gallery}`;
+        if (company === "نعم") {
+          message += `%0Aالشركة: ${document.getElementById("companyName").value}`;
+        } else if (company === "أخرى") {
+          message += `%0Aالشركة: ${document.getElementById("otherCompany").value}`;
+        }
+      }
+
+      if (service === "سباكة") {
+        let material = document.getElementById("plumbingMaterial").value;
+        message += `%0Aالخامات: ${material}`;
+      }
+
+      if (service === "كهرباء") {
+        let material = document.getElementById("electricMaterial").value;
+        message += `%0Aالخامات: ${material}`;
+      }
+
+      if (service === "نقاشة") {
+        let paintAnswer = document.querySelector('input[name="paint-answer"]:checked');
+        if (paintAnswer) {
+          if (paintAnswer.value === "لا") {
+            let colorFile = document.getElementById("colorFile").files[0];
+            message += `%0Aالدهان: العميل سيحتاج منا الخامات`;
+            if (colorFile) {
+              message += `%0Aالصورة المرفوعة: ${colorFile.name}`;
+            }
+          } else {
+            message += `%0Aالدهان: العميل سيوفر الخامات بنفسه`;
+          }
+        }
+      }
+
+      if (service === "ديكور") {
+        let decorAnswer = document.querySelector('input[name="decor-answer"]:checked');
+        if (decorAnswer) {
+          if (decorAnswer.value === "نعم") {
+            let decorFile = document.getElementById("decorFile").files[0];
+            message += `%0Aالديكور: العميل أرسل تصميم`;
+            if (decorFile) {
+              message += `%0Aالصورة المرفوعة: ${decorFile.name}`;
+            }
+          } else {
+            message += `%0Aالديكور: العميل لا يمتلك تصميم محدد`;
+          }
+        }
+      }
+      if (service === "نقاشة") {
+  let paintAnswer = document.getElementById("paintingMaterial").value;
+  message += `%0Aهل ستوفر الخامات (الدهانات) بنفسك؟: ${paintAnswer}`;
+}
+
+if (service === "ديكور") {
+  let decorAnswer = document.getElementById("decorChoice").value;
+  message += `%0Aهل لديك تصميم ديكور معين؟: ${decorAnswer}`;
+}
+
+
+      window.open(`https://wa.me/201024324864?text=${message}`, "_blank");
+      document.getElementById("negotiationBox").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
